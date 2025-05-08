@@ -1,0 +1,3 @@
+.update-form { display: flex; flex-direction: column; gap: 12px; }
+.update-form input[type="text"], .update-form input[type="password"] { padding: 8px; }
+.update-form .actions { display: flex; gap: 10px; }

@@ -1,0 +1,4 @@
+.prompt-form { display: flex; flex-direction: column; gap: 12px; }
+.prompt-form textarea { width: 100%; height: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.prompt-form button { align-self: flex-end; padding: 8px 16px; }
+.prompt-form .response { background: #f1f1f1; padding: 10px; border-radius: 4px; }
