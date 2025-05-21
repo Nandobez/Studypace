@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createUser } from '../api/userApi.js';
 import './RegisterForm.css';
+import Button from '@mui/material/Button';
 
 export default function RegisterForm({ onRegister }) {
     const [form, setForm] = useState({ name:'', email:'', password:'', role:'student', active:true });
