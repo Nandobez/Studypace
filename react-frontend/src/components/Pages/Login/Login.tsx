@@ -1,115 +1,62 @@
-import React from 'react';
-import {
-    Box,
-    Button,
-    Container,
-    Divider,
-    IconButton,
-    Link,
-    Paper,
-    TextField,
-    Typography,
-} from '@mui/material';
-import { Google, Facebook } from '@mui/icons-material';
+import React, { useContext, useState } from 'react';
+import { Box, Paper } from '@mui/material';
 import img from '../../../assets/img.png';
+import LoginForm from './LoginForm/LoginForm';
+import RegisterForm from './RegisterForm/RegisterForm';
+import { LoginContext, ILoginContext } from '../../Contexts/LoginContext';
+import logo1 from '../../../assets/logo1.png';
 
+const Login = () => {
+    const loginContext = useContext(LoginContext) as ILoginContext
 
-const LoginPage = () => {
     return (
         <Box
             sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                height: '100vh',
+                width: '100vw',
+                backgroundImage: `url(${img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'right center',
+                backgroundRepeat: 'no-repeat',
                 display: 'flex',
-                minHeight: '100vh',
-                backgroundColor: '#f5f5f5',
+                justifyContent: 'start',
+                alignItems: 'center',
+                paddingLeft: 15
             }}
         >
-            {/* Formulário de Login */}
+            {/* Overlay escuro para legibilidade */}
+            <Box
+                sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    zIndex: 1,
+                }}
+            />
+
+            {/* <Box component="img" src={logo1} alt="StudyPace Logo" sx={{ height: 50, zIndex: 2, }} /> */}
             <Box
                 component={Paper}
                 elevation={10}
                 sx={{
                     width: '100%',
-                    maxWidth: 400,
-                    margin: 'auto',
+                    maxWidth: 500,
                     p: 4,
-                    borderRadius: 10,
+                    borderRadius: 5,
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    zIndex: 2,
                 }}
             >
-                <Typography variant="h4" fontWeight={700} mb={3} textAlign={"start"}>
-                    Bem Vindo!
-                </Typography>
-
-                <TextField
-                    fullWidth
-                    label="Email"
-                    margin="normal"
-                    variant="outlined"
-                />
-
-                <TextField
-                    fullWidth
-                    label="Senha"
-                    type="password"
-                    margin="normal"
-                    variant="outlined"
-                />
-
-                <Box textAlign="start" mt={1} mb={2}>
-                    <Link href="#" variant="body2" underline="hover" fontWeight={700}>
-                        Esqueceu a senha
-                    </Link>
-                </Box>
-
-                <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    sx={{ mb: 2 }}
-                >
-                    Login
-                </Button>
-
-                <Typography variant="body2" align="center" mb={1}>
-                    Não tem cadastro?{' '}
-                    <Link href="#" underline="hover" fontWeight={700}>
-                        Se registre agora
-                    </Link>
-                </Typography>
-
-                <Divider sx={{ my: 2 }}>Ou continue com</Divider>
-
-                <Box display="flex" justifyContent="center" gap={2}>
-                    <IconButton color="error">
-                        <Google />
-                    </IconButton>
-                    <IconButton color="primary">
-                        <Facebook />
-                    </IconButton>
-                </Box>
+                {loginContext.login.form === "login" ?
+                    <LoginForm /> :
+                    <RegisterForm />
+                }
             </Box>
-
-            {/* Ilustração */}
-            <Box
-                sx={{
-                    display: { xs: 'none', md: 'block' },
-                    flex: 1,
-                }}
-            >
-                <img
-                    src={img}
-                    alt="Tela ilustrativa"
-                    style={{
-                        width: '200%',
-                        height: '100vh',
-                        objectFit: 'cover',
-                        display: 'block',
-                    }}
-                />
-            </Box>
-
         </Box>
     );
 };
 
-export default LoginPage;
+export default Login;
