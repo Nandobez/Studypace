@@ -1,56 +1,63 @@
 package com.studypace.studypace.backend.controller;
 
-import com.studypace.studypace.backend.dto.*;
+import com.studypace.studypace.backend.dto.JwtResponseDTO;
+import com.studypace.studypace.backend.dto.LoginRequestDTO;
+import com.studypace.studypace.backend.dto.RegisterRequestDTO;
 import com.studypace.studypace.backend.model.User;
-import com.studypace.studypace.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
+import com.studypace.studypace.backend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.studypace.studypace.backend.service.JwtService;
+import com.studypace.studypace.backend.service.UserFactory;
 
 @RestController
-@RequestMapping("/api/users")
-@RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/auth")
 public class UserController {
-    private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<User> create(@RequestBody UserDTO dto) {
-        return ResponseEntity.ok(userService.createUser(dto));
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+        if (userRepository.findByEmail(registerRequestDTO.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email already in use");
+        }
+        User user = UserFactory.createUser(
+                registerRequestDTO.getRole(),
+                registerRequestDTO.getName(),
+                registerRequestDTO.getEmail(),
+                passwordEncoder.encode(registerRequestDTO.getPassword()),
+                registerRequestDTO.isActive()
+        );
+        userRepository.save(user);
+        return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getById(@PathVariable Long id) {
-        return userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserDTO dto) {
-        return userService.updateUser(id, dto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/prompt")
-    public ResponseEntity<PromptResponseDTO> prompt(@RequestBody PromptRequestDTO req) {
-        return ResponseEntity.ok(userService.sendPrompt(req));
-    }
-
-    @PostMapping("/{id}/files")
-    public ResponseEntity<List<FileUploadResponseDTO>> uploadFiles(
-            @PathVariable Long id,
-            @RequestParam("files") List<MultipartFile> files) throws Exception {
-        return ResponseEntity.ok(userService.uploadFiles(id, files));
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtService.generateToken(authentication);
+        return ResponseEntity.ok(new JwtResponseDTO(jwt));
     }
 }
