@@ -1,8 +1,10 @@
-import { Logout, Person, Settings } from "@mui/icons-material"
 import { AppBar, Toolbar, Box, Tooltip, IconButton, Menu, MenuItem } from "@mui/material"
 import React, { useContext } from "react"
 import { IUserContext, UserContext, UserInfoInit } from "../Contexts/UserContext";
-import logo1 from '../../assets/logo1.png'
+import LOGO_StudyPace_Branco from '../../assets/LOGO_StudyPace_Branco.png'
+import PixelIcon from "../Icons/PixelIcon";
+import User from 'pixelarticons/svg/user.svg?react';
+import Logout from 'pixelarticons/svg/logout.svg?react';
 
 const NavBar = () => {
     const userContext = useContext(UserContext) as IUserContext;
@@ -27,12 +29,11 @@ const NavBar = () => {
     }
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#1976d2', zIndex: 2 }
-        }>
+        <AppBar position="static" elevation={0} sx={{boxShadow: "4px 4px 0px #ffcc34"}}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Box
                     component="img"
-                    src={logo1}
+                    src={LOGO_StudyPace_Branco}
                     alt="StudyPace Logo"
                     sx={{ height: 50 }}
                     onClick={() => userContext.setCurrentPage("home")}
@@ -43,7 +44,7 @@ const NavBar = () => {
                         onClick={handleClick}
                         color='inherit'
                     >
-                        <Settings />
+                        {/* <PixelIcon Icon={Gear} /> */}
                     </IconButton>
                 </Tooltip>
 
@@ -52,12 +53,10 @@ const NavBar = () => {
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
+                    elevation={0}
                 >
-                    <MenuItem onClick={handleUpdateProfile}>Perfil {<Person />}</MenuItem>
-                    <MenuItem onClick={handleLogoutProfile}>Sair {<Logout />}</MenuItem>
+                    <MenuItem onClick={handleUpdateProfile} sx={{gap: 1}}>{<PixelIcon Icon={User} />}Perfil</MenuItem>
+                    <MenuItem onClick={handleLogoutProfile} sx={{gap: 1}}>{<PixelIcon Icon={Logout} />}Sair</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar >

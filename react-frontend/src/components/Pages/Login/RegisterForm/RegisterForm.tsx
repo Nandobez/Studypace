@@ -45,7 +45,7 @@ const RegisterForm = () => {
 
     return (
         <>
-            <Typography variant="h4" fontWeight={700} mb={3} textAlign="start">
+            <Typography variant="h4" fontWeight={700} fontFamily={"Pixellari"} mb={3} textAlign="start">
                 Realizar Cadastro
             </Typography>
 

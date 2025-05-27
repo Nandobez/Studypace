@@ -28,25 +28,25 @@ const Login = () => {
             }}
         >
             {/* Overlay escuro para legibilidade */}
-            <Box
+            {/* <Box
                 sx={{
                     position: 'absolute',
                     inset: 0,
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     zIndex: 1,
                 }}
-            />
+            /> */}
 
             {/* <Box component="img" src={logo1} alt="StudyPace Logo" sx={{ height: 50, zIndex: 2, }} /> */}
             <Box
                 component={Paper}
-                elevation={10}
+                elevation={0}
                 sx={{
                     width: '100%',
                     maxWidth: 500,
                     p: 4,
-                    borderRadius: 5,
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: 0,
+                    backgroundColor: 'rgba(255, 255, 255)',
                     zIndex: 2,
                 }}
             >

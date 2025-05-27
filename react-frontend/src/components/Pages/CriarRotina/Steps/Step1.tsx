@@ -27,7 +27,7 @@ const Step1 = () => {
 
     return (
         <>
-            <Typography variant="body1" color="white" mb={2} textAlign={"left"}>
+            <Typography variant="body1" color="white" mb={2} textAlign={"left"} sx={{textShadow: '4px 4px 0px rgb(0, 0, 0)'}}>
                 Qual é o seu principal objetivo de estudo?
             </Typography>
 
@@ -38,7 +38,8 @@ const Step1 = () => {
                 onChange={handleChange}
                 fullWidth
                 sx={{
-                    gap: 1
+                    gap: 1,
+                    // boxShadow: '4px 4px 0px #ffcc34'
                 }} // espaçamento entre botões
             >
                 {[
@@ -52,16 +53,20 @@ const Step1 = () => {
                         key={label}
                         value={label}
                         sx={{
-                            backgroundColor: objetivo === label ? 'rgb(255, 255, 255)' : 'rgb(255, 255, 255)',
-                            color: objetivo === label ? 'rgb(255, 255, 255)' : '#1976d2',
+                            backgroundColor: objetivo === label ? 'rgb(255, 255, 255)' : '#004c6d',
+                            color: objetivo === label ? 'rgb(255, 255, 255)' : '#ffffff',
                             fontWeight: 'bold',
+                            boxShadow: '4px 4px 0px #ffcc34',
                             border: 'none',
                             '&:hover': {
-                                backgroundColor: objetivo === label ? '#fff' : 'rgba(255, 255, 255, 0.3)',
+                                backgroundColor: objetivo === label ? '#fff' : '#08344c',
                                 color: objetivo === label ? 'rgb(255, 255, 255)' : 'rgb(255, 255, 255)',
+                                boxShadow: "none"
                             },
                             '&.Mui-selected': {
-                                color: 'rgb(255, 255, 255)'
+                                color: 'rgb(255, 255, 255)',
+                                backgroundColor: "#08344c",
+                                boxShadow: "none"
                             }
                         }}
                     >
@@ -93,7 +98,7 @@ const Step1 = () => {
             >
                 <Button
                     variant="contained"
-                    color="error"
+                    color="primary"
                     fullWidth
                     sx={{
                         mt: 4,
@@ -102,6 +107,9 @@ const Step1 = () => {
                         '&:disabled': {
                             backgroundColor: 'rgba(255,255,255,0.5)',
                             color: '#1976d2',
+                        },
+                        '&:hover': {
+                            boxShadow: "none"
                         },
                         maxWidth: 400,
                         minHeight: 50,
@@ -112,7 +120,7 @@ const Step1 = () => {
                 </Button>
                 <Button
                     variant="contained"
-                    color="success"
+                    color="primary"
                     fullWidth
                     sx={{
                         mt: 4,

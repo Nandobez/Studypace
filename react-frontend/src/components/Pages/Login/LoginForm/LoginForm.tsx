@@ -6,6 +6,8 @@ import { ILoginForm } from "./LoginFormTypes"
 import { loginFormInit } from "./LoginFormConsts"
 import { createUser } from "../../../../api/userApi"
 import { IUserContext, UserContext } from "../../../Contexts/UserContext";
+import PixelIcon from "../../../Icons/PixelIcon"
+import Login from 'pixelarticons/svg/login.svg?react';
 
 const LoginForm = () => {
     const userContext = useContext(UserContext) as IUserContext;
@@ -39,7 +41,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <Typography variant="h4" fontWeight={700} mb={3} textAlign="start">
+            <Typography variant="h4" fontWeight={700} fontFamily={"Pixellari"} mb={3} textAlign="start" color="primary" >
                 Bem-vindo ao StudyPace!
             </Typography>
 
@@ -47,8 +49,9 @@ const LoginForm = () => {
                 fullWidth
                 label="Email"
                 margin="normal"
-                variant="outlined"
+                variant="filled"
                 value={loginForm.email}
+                sx={{borderRadius: 0}}
                 onChange={(e) => handleLoginFormChange("email", e.target.value)}
             />
 
@@ -57,7 +60,7 @@ const LoginForm = () => {
                 label="Senha"
                 type="password"
                 margin="normal"
-                variant="outlined"
+                variant="filled"
                 value={loginForm.password}
                 onChange={(e) => handleLoginFormChange("password", e.target.value)}
             />
@@ -73,14 +76,14 @@ const LoginForm = () => {
                 variant="contained"
                 color="primary"
                 size="large"
-                sx={{ mb: 2 }}
+                sx={{gap: 1}}
                 onClick={submitLogin}
                 disabled={loading}
             >
-                {loading ? <CircularProgress size={20} /> : "LOGIN"}
+                {loading ? <CircularProgress size={20} /> : <>LOGIN {<PixelIcon Icon={Login} style={{position: "relative", bottom: 2}} size={22}/>}</>}
             </Button>
 
-            <Typography variant="body2" align="center" mb={1}>
+            <Typography variant="body2" align="center" mb={1} p={1}>
                 Não tem cadastro?{' '}
                 <Link
                     href="#"

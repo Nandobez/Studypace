@@ -1,7 +1,10 @@
 import { UserContext, IUserContext } from "../../Contexts/UserContext";
 import { Box, Typography, Button } from "@mui/material";
 import React, { useContext } from "react";
-import img2 from '../../../assets/img2.png';
+import img from '../../../assets/img.png';
+import PixelIcon from "../../Icons/PixelIcon";
+import CalendarMultipleCheck from 'pixelarticons/svg/calendar-multiple-check.svg?react';
+
 
 const Home = () => {
     const userContext = useContext(UserContext) as IUserContext;
@@ -9,7 +12,7 @@ const Home = () => {
         <Box
             sx={{
                 flex: 1,
-                backgroundImage: `url(${img2})`,
+                backgroundImage: `url(${img})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 display: 'flex',
@@ -24,8 +27,9 @@ const Home = () => {
                 variant="h4"
                 fontWeight="bold"
                 color="white"
+                fontFamily={"Pixellari"}
                 sx={{
-                    textShadow: '1px 1px 4px black',
+                    textShadow: '4px 4px 0px black',
                     mb: 2,
                     maxWidth: 700
                 }}
@@ -38,12 +42,22 @@ const Home = () => {
                 variant="contained"
                 color="primary"
                 size='large'
+                disableElevation
                 onClick={() => userContext.setCurrentPage("criarRotina")}
-                sx={{ borderRadius: 4, px: 4, fontWeight: 'bold' }}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1,
+                    fontWeight: 'bold',
+                    px: 2,
+                    py: 1
+                }}
             >
-                Criar Nova Rotina 📘
+                Criar Nova Rotina
+                <PixelIcon Icon={CalendarMultipleCheck} style={{imageRendering: 'pixelated' }} />
             </Button>
-        </Box>
+        </Box >
     )
 }
 

@@ -9,6 +9,7 @@ import {
     TextField,
     ButtonGroup,
     Stack,
+    Tooltip,
 } from '@mui/material';
 import { CriarRotinaContext, ICriarRotinaContext } from "../../Contexts/CriarRotinaContext";
 import Step1 from './Steps/Step1';
@@ -54,7 +55,7 @@ const CriarRotina = () => {
                 sx={{
                     height: '100vh',
                     width: '100vw',
-                    backgroundColor: '#1976d2',
+                    backgroundColor: 'rgb(9, 62, 88)',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -63,8 +64,8 @@ const CriarRotina = () => {
             >
                 <Box sx={{ width: '50%', position: "relative", bottom: 150 }}>
                     <Typography
-                        variant="h5" fontWeight="bold" align="center" color="white" mb={2} padding={10}
-                        sx={{ position: "relative", top:  CriarRotina.step === "6" ? 150 : 0 }}
+                        variant="h5" fontWeight="bold" align="center" color="white" mb={2} padding={10} fontFamily={"Pixellari"}
+                        sx={{ position: "relative", top: CriarRotina.step === "6" ? 150 : 0, textShadow: '4px 4px 0px rgb(0, 0, 0)' }}
                     >
                         {titleValue}
                     </Typography>
@@ -74,13 +75,15 @@ const CriarRotina = () => {
                         value={linearProgressValue}
                         sx={{
                             mb: 4,
+                            boxShadow: '4px 4px 0px rgb(0, 0, 0)',
                             backgroundColor: 'rgba(255,255,255,0.2)',
                             '& .MuiLinearProgress-bar': {
-                                backgroundColor: '#fff',
+                                backgroundColor: '#ffcc34',
                             },
                             position: "relative", top: CriarRotina.step === "6" ? 100 : 0
                         }}
                     />
+
                     {
                         CriarRotina.step === "1" ?
                             <Step1 />

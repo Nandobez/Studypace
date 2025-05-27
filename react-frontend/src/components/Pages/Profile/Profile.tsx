@@ -113,8 +113,7 @@ const Profile = () => {
                         right: 550
                     }}
                 >
-
-                    <Typography variant="h4" fontWeight={700} mb={3} textAlign="start">
+                    <Typography variant="h4" fontWeight={700} fontFamily={"Pixellari"}  mb={3} textAlign="start">
                         {operation === null ? "Perfil" : operation === "edit" ? "Editar Perfil" : "Excluir Perfil"}
                     </Typography>
                     {
