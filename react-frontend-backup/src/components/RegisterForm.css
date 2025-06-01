@@ -1,0 +1,5 @@
+.register-form { display: flex; flex-direction: column; gap: 12px; }
+.register-form .error { color: red; }
+.register-form input, .register-form button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.register-form button { background: #007bff; color: #fff; cursor: pointer; }
+.register-form button:disabled { background: #ccc; cursor: default; }
