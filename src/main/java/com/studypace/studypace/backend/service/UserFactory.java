@@ -13,8 +13,8 @@ public class UserFactory {
                 .dailyStudyHours(2)
                 .build();
         return switch (role.toUpperCase()) {
-            case "STUDENT" -> new Student(null, name, email, password, User.Role.STUDENT, active, preferences, "beginner");
-            case "TEACHER" -> new Teacher(null, name, email, password, User.Role.TEACHER, active, preferences, "general");
+            case "ESTUDANTE" -> new Student(null, name, email, password, User.Role.STUDENT, active, preferences, "beginner");
+            case "PROFESSOR" -> new Teacher(null, name, email, password, User.Role.TEACHER, active, preferences, "general");
             default -> throw new IllegalArgumentException("Invalid role: " + role);
         };
     }
