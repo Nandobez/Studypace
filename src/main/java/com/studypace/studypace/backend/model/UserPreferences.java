@@ -1,5 +1,6 @@
 package com.studypace.studypace.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference; // IMPORTANTE: Adicionar para evitar loops infinitos em JSON
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +11,22 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserPreferences {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String studyGoals; // e.g., "Prepare for ENEM"
-    private String preferredSubjects; // e.g., "Math,Physics"
+    @Column(nullable = false)
+    private String studyGoals;
+
+    @Column(nullable = false)
+    private String preferredSubjects;
+
+    @Column(nullable = false)
     private int dailyStudyHours;
+
+    // --- LINHA ADICIONADA ---
+    @OneToOne(mappedBy = "preferences")
+    @JsonBackReference // Evita problemas de serialização (loop infinito)
+    private User user;
 }

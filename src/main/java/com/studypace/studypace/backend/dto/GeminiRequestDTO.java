@@ -5,19 +5,14 @@ import lombok.*;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeminiResponseDTO {
-    private List<Candidate> candidates;
+public class GeminiRequestDTO {
+    private List<Content> contents;
 
     @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Candidate {
-        private Content content;
-    }
-
-    @Data
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Content {
@@ -25,13 +20,10 @@ public class GeminiResponseDTO {
     }
 
     @Data
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Part {
         private String text;
-
-        public String get() {
-            return text;
-        }
     }
 }

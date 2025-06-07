@@ -1,63 +1,81 @@
 package com.studypace.studypace.backend.controller;
 
-import com.studypace.studypace.backend.dto.JwtResponseDTO;
-import com.studypace.studypace.backend.dto.LoginRequestDTO;
-import com.studypace.studypace.backend.dto.RegisterRequestDTO;
+import com.studypace.studypace.backend.dto.UserDTO;
+import com.studypace.studypace.backend.dto.UserPreferencesDTO;
 import com.studypace.studypace.backend.model.User;
-import com.studypace.studypace.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.studypace.studypace.backend.model.UserPreferences;
+import com.studypace.studypace.backend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.studypace.studypace.backend.service.JwtService;
-import com.studypace.studypace.backend.service.UserFactory;
+import jakarta.validation.Valid;
+import java.util.Arrays;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final UserService userService;
 
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
-        if (userRepository.findByEmail(registerRequestDTO.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email already in use");
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('STUDENT', 'TEACHER', 'ADMIN')")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        if (!currentUser.getId().equals(id) && currentUser.getRole() != User.Role.ADMIN) {
+            return ResponseEntity.status(403).build();
         }
-        User user = UserFactory.createUser(
-                registerRequestDTO.getRole(),
-                registerRequestDTO.getName(),
-                registerRequestDTO.getEmail(),
-                passwordEncoder.encode(registerRequestDTO.getPassword()),
-                registerRequestDTO.isActive()
-        );
-        userRepository.save(user);
-        return ResponseEntity.ok("User registered successfully");
+        return userService.getUserById(id)
+                .map(user -> ResponseEntity.ok(new UserDTO(
+                        user.getName(),
+                        user.getEmail(),
+                        null,
+                        user.getRole().name(),
+                        user.isActive())))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtService.generateToken(authentication);
-        return ResponseEntity.ok(new JwtResponseDTO(jwt));
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or (hasAnyRole('STUDENT', 'TEACHER') and authentication.principal.id == #id)")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        if (userDTO.getRole() != null && !isValidRole(userDTO.getRole())) {
+            return ResponseEntity.badRequest().build();
+        }
+        return userService.updateUser(id, userDTO)
+                .map(user -> ResponseEntity.ok(new UserDTO(
+                        user.getName(),
+                        user.getEmail(),
+                        null,
+                        user.getRole().name(),
+                        user.isActive())))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        if (!userService.getUserById(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/preferences")
+    @PreAuthorize("hasAnyRole('STUDENT', 'TEACHER') and authentication.principal.id == #id")
+    public ResponseEntity<UserPreferencesDTO> updatePreferences(@PathVariable Long id, @Valid @RequestBody UserPreferencesDTO preferencesDTO) {
+        UserPreferences preferences = userService.updatePreferences(id, preferencesDTO);
+        return ResponseEntity.ok(new UserPreferencesDTO(
+                preferences.getStudyGoals(),
+                preferences.getPreferredSubjects(),
+                preferences.getDailyStudyHours()));
+    }
+
+    private boolean isValidRole(String role) {
+        return Arrays.stream(User.Role.values())
+                .anyMatch(r -> r.name().equalsIgnoreCase(role));
     }
 }

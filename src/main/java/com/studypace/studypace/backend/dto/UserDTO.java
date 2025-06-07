@@ -1,9 +1,12 @@
 package com.studypace.studypace.backend.dto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
     private String name;
     private String email;
@@ -11,4 +14,3 @@ public class UserDTO {
     private String role;
     private boolean active;
 }
-
