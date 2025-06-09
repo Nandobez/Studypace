@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 type TPage = "home" | "criarRotina" | "verRotina" | "updateProfile" 
 
 interface IUserInfo {
+    id: number,
     name: string,
     email: string,
     password: string,
@@ -11,6 +12,7 @@ interface IUserInfo {
 }
 
 export const UserInfoInit: IUserInfo = {
+    id: 0,
     name: "",
     email: "",
     password: "",
