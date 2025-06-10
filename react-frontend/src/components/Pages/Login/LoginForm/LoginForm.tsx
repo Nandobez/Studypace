@@ -36,6 +36,7 @@ const LoginForm = () => {
             })
             .catch(() => {
                 console.log("erro")
+                setLoading(false)
             })
     }
 

@@ -20,11 +20,14 @@ import { useContext } from "react";
 import { IRotinaResumoContext, RotinaResumoContext } from "../../Contexts/RotinaResumoContext";
 import React from "react";
 import NavBar from "../../NavBar/NavBar";
+import { CriarRotinaContext, ICriarRotinaContext } from "@/components/Contexts/CriarRotinaContext";
 
 const RotinaResumo = () => {
 
   const rotinaContext = useContext(RotinaResumoContext) as IRotinaResumoContext
 
+  console.log("geminiGeneratedContent: ", rotinaContext.rotina.geminiGeneratedContent);
+  
   return (
     <Box
       sx={{
@@ -52,14 +55,14 @@ const RotinaResumo = () => {
       >
         <Container maxWidth="md" sx={{ py: 5 }}>
           <Typography variant="h5" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: '#1976d2' }}>
-            📘 Rotina de Estudos de {rotinaContext.rotina.area}
+            📘 {rotinaContext.rotina.title}
           </Typography>
 
           <Box sx={{ my: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              {rotinaContext.rotina.progresso}% Completo
+              {rotinaContext.rotina.progress}% Completo
             </Typography>
-            <LinearProgress variant="determinate" value={rotinaContext.rotina.progresso} sx={{ height: 10, borderRadius: 5 }} />
+            <LinearProgress variant="determinate" value={rotinaContext.rotina.progress} sx={{ height: 10, borderRadius: 5 }} />
           </Box>
 
           {/* Resumo */}
@@ -70,7 +73,7 @@ const RotinaResumo = () => {
               </Typography>
               <Stack spacing={1}>
                 <Chip icon={<School />} label={`Objetivo: ${rotinaContext.rotina.objetivo}`} />
-                <Chip icon={<AccessTime />} label={`Até quando: ${rotinaContext.rotina.dataLimite}`} />
+                <Chip icon={<AccessTime />} label={`Até quando: ${rotinaContext.rotina.endDate}`} />
                 <Chip icon={<Checklist />} label={`Tempo diário: ${rotinaContext.rotina.tempoPorDia} por dia`} />
               </Stack>
             </CardContent>
@@ -83,11 +86,11 @@ const RotinaResumo = () => {
                 📅 Agenda do Dia
               </Typography>
               <Stack spacing={1}>
-                {rotinaContext.rotina.agenda.map((item, idx) => (
+                {/* {rotinaContext.rotina.agenda.map((item, idx) => (
                   <Typography key={idx} variant="body1">
                     • {item}
                   </Typography>
-                ))}
+                ))} */}
               </Stack>
             </CardContent>
           </Card>
@@ -114,7 +117,7 @@ const RotinaResumo = () => {
           {/* Feedback da IA */}
           <Alert severity="info" icon={<Feedback />} sx={{ mt: 4 }}>
             <strong>Feedback da IA:</strong><br />
-            {rotinaContext.rotina.feedback}
+            {rotinaContext.rotina.feedBack}
           </Alert>
         </Container>
       </Box>

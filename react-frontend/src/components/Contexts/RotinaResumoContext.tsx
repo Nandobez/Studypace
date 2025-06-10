@@ -1,44 +1,65 @@
 import React, { createContext, useState } from 'react';
 
 interface IRotina {
-    area: string,
-    objetivo: string,
-    dataLimite: string | undefined,
-    tempoPorDia: string,
-    progresso: number,
-    agenda: Array<string>,
-    diasSeguidos: number,
-    mediaHoras: number,
-    feedback: string
+    id: number,
+    title: string,
+    description: string,
+    startDate: Date | string,
+    endDate: Date | string,
+    subjects: Array<string>,
+    priorityTopics: Array<string>,
+    dailyStudyHours: number,
+    geminiGeneratedContent: string,
 
+    objetivo: string,
+    progress: number,
+    tempoPorDia: string,
+    diasSeguidos: string,
+    mediaHoras: string,
+    feedBack: string
 }
 
-const rotinaInitMock: IRotina = {
-    area: "História",
-    objetivo: "Melhorar notas na Escola",
-    dataLimite: "17/06/2025 (2 meses)",
-    tempoPorDia: "3 horas",
-    progresso: 70,
-    agenda: [
-        "Assistir vídeo-aula sobre Sócrates (link do vídeo)",
-        "Ler pdf sobre a Grécia Antiga (link do pdf)",
-        "Realizar Atividade sobre a Grécia Antiga (link do formulário)"
+export const rotinaInitMock: IRotina = {
+    id: 385,
+    title: "Math Study Plan",
+    description: "Weekly math schedule",
+    startDate: "2025-06-05T00:00:00",
+    endDate: "2025-06-12T23:59:00",
+    subjects: [
+        "Math"
     ],
-    diasSeguidos: 7,
-    mediaHoras: 2.8,
-    feedback: "Você está tendo um desempenho paia, As vídeo-aulas estão em dia, mas pelo visto ler não é o seu forte ein hahaha!",
+    priorityTopics: [
+        "Algebra"
+    ],
+    dailyStudyHours: 2,
+    geminiGeneratedContent: 
+    "[Formatted] Gemini feedback: ```json\n {\n  \"schedule\": [\n    {\n      \"date\": \"2025-06-05\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-06\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra - Review\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-07\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry - Review\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus - Review\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-08\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Practice Test 1\"],\n          \"timeSlots\": \"14:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-09\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra - Difficult Topics\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry - Difficult Topics\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-10\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus - Difficult Topics\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Practice Test 2\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-11\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Final Review\"],\n          \"timeSlots\": \"14:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-12\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Last Minute Review\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    }\n  ],\n  \"importantSubjects\": [\"Math\"],\n  \"recommendations\": \"Prioritize practice tests and review difficult topics.  Ensure you understand the core concepts before moving on to more complex problems.  Use videos to supplement your understanding of the material.\"\n}\n```\n",
+    
+    progress: 0,
+    objetivo: "Resumo de Conteudos Especificos",
+    tempoPorDia: '3',
+    diasSeguidos: '1',
+    mediaHoras: '2',
+    feedBack: ''
 }
 
 const rotinaInit: IRotina = {
-    area: '',
+    id: 0,
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    subjects: [],
+    priorityTopics: [],
+    dailyStudyHours: 0,
+    geminiGeneratedContent: '',
+
+    progress: 0,
     objetivo: '',
-    dataLimite: undefined,
     tempoPorDia: '',
-    progresso: 0,
-    agenda: [],
-    diasSeguidos: 0,
-    mediaHoras: 0,
-    feedback: ''
+    diasSeguidos: '',
+    mediaHoras: '',
+    feedBack: ''
 }
 
 export interface IRotinaResumoContext {

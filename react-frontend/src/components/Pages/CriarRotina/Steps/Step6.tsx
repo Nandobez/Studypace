@@ -11,7 +11,7 @@ import {
 import React, { useContext, useState } from "react";
 import { UserContext, IUserContext } from "../../../Contexts/UserContext";
 import { CriarRotinaContext, ICriarRotinaContext } from "../../../Contexts/CriarRotinaContext";
-import { IRotinaResumoContext, RotinaResumoContext } from "../../../Contexts/RotinaResumoContext";
+import { IRotinaResumoContext, rotinaInitMock, RotinaResumoContext } from "../../../Contexts/RotinaResumoContext";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
@@ -63,7 +63,7 @@ const Step6 = () => {
       })
       .catch((err) => {
         console.log(err)
-        rotinaContext.setRotina((prev) => ({...prev, objetivo: CriarRotina.prompt.step1, area: CriarRotina.prompt.step2, tempoPorDia: CriarRotina.prompt.step3, dataLimite: CriarRotina.prompt.step4}))
+        rotinaContext.setRotina(rotinaInitMock)
         userContext.setCurrentPage("verRotina")
         setLoading(false)
       });
