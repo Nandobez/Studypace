@@ -56,12 +56,12 @@ const Step6 = () => {
     }));
     console.log("Prompt: ", CriarRotina.prompt)
     const promptPayload = {
-      title: CriarRotina.prompt.step2,
+      title: `${CriarRotina.prompt.step2.area} Study Plan`,
       description: "",
       startDate: new Date().toISOString().split("T")[0],
       dateEndDate: CriarRotina.prompt.step4,
-      subjects: ["Math"],
-      priorityTopics: ["Calculus - Difficult Topics", "Geometry - Difficult Topics", "Algebra - Difficult Topics"],
+      subjects: CriarRotina.prompt.step2.materias,
+      priorityTopics: CriarRotina.prompt.step2.topicos,
       dailyHours: CriarRotina.prompt.step3,
       studyType: CriarRotina.prompt.step1,
       purpose: "",
