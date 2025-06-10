@@ -5,8 +5,8 @@ type TStep = "1" | "2" | "3" | "4" | "5" | "6"
 interface IPrompt {
     step1: string,
     step2: string,
-    step3: string,
-    step4: string | undefined,
+    step3: number,
+    step4: Date | undefined,
     step5: Array<string>,
     step6: {
         materiais: Array<string>,
@@ -17,7 +17,7 @@ interface IPrompt {
 const promptInit: IPrompt = {
     step1: '',
     step2: '',
-    step3: '',
+    step3: 0,
     step4: undefined,
     step5: [],
     step6: {

@@ -21,7 +21,7 @@ const Step4 = () => {
     const handleNext = () => {
         CriarRotina.setPrompt(prev => ({
             ...prev,
-            step4: data?.toLocaleDateString("pt-BR")
+            step4: data ? data : new Date
         }));
         CriarRotina.setStep("5");
         console.log("Data escolhida:", data);

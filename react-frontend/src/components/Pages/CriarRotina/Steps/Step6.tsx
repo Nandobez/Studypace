@@ -54,8 +54,21 @@ const Step6 = () => {
         complementar: complementar.trim(),
       },
     }));
-    // CriarRotina.setStep("7"); // ou "fim"
-    sendPrompt(CriarRotina.prompt, userContext.userInfo.user.id)
+    console.log("Prompt: ", CriarRotina.prompt)
+    const promptPayload = {
+      title: CriarRotina.prompt.step2,
+      description: "",
+      startDate: new Date,
+      dateEndDate: CriarRotina.prompt.step4,
+      subjects: ["Math"],
+      priorityTopics: ["Calculus - Difficult Topics", "Geometry - Difficult Topics", "Algebra - Difficult Topics"],
+      dailyHours: CriarRotina.prompt.step3,
+      studyType: CriarRotina.prompt.step1,
+      purpose: "",
+      preferredMethods: CriarRotina.prompt.step6.materiais
+    }
+    console.log("promptPayload: ", promptPayload)
+    sendPrompt(promptPayload, userContext.userInfo.user.id, userContext.userInfo.token)
       .then((resp) => {
         userContext.setCurrentPage("verRotina")
         rotinaContext.setRotina(resp)
@@ -64,7 +77,6 @@ const Step6 = () => {
       .catch((err) => {
         console.log(err)
         rotinaContext.setRotina(rotinaInitMock)
-        userContext.setCurrentPage("verRotina")
         setLoading(false)
       });
     // userContext.setCurrentPage("verRotina")
