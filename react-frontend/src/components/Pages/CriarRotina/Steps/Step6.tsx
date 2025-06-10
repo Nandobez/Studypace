@@ -58,18 +58,20 @@ const Step6 = () => {
     const promptPayload = {
       title: CriarRotina.prompt.step2,
       description: "",
-      startDate: new Date,
+      startDate: new Date().toISOString().split("T")[0],
       dateEndDate: CriarRotina.prompt.step4,
       subjects: ["Math"],
       priorityTopics: ["Calculus - Difficult Topics", "Geometry - Difficult Topics", "Algebra - Difficult Topics"],
       dailyHours: CriarRotina.prompt.step3,
       studyType: CriarRotina.prompt.step1,
       purpose: "",
-      preferredMethods: CriarRotina.prompt.step6.materiais
+      preferredMethods: CriarRotina.prompt.step6.materiais.join(", ")
     }
     console.log("promptPayload: ", promptPayload)
     sendPrompt(promptPayload, userContext.userInfo.user.id, userContext.userInfo.token)
       .then((resp) => {
+        console.log("---------------")
+        console.log(resp)
         userContext.setCurrentPage("verRotina")
         rotinaContext.setRotina(resp)
         setLoading(false)
