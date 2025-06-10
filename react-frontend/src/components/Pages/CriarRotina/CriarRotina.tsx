@@ -45,7 +45,7 @@ const CriarRotina = () => {
                 left: 0,
                 height: '100vh',
                 width: '100vw',
-                overflow: 'hidden',
+                overflowY: 'scroll',
                 display: 'flex',
                 flexDirection: 'column',
             }}
@@ -58,7 +58,8 @@ const CriarRotina = () => {
                     backgroundColor: 'rgb(9, 62, 88)',
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    overflowY: 'scroll',
+                    py: CriarRotina.step === "6" ? 7 : 25,
                     px: 2,
                 }}
             >
