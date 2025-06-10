@@ -55,7 +55,7 @@ const Step6 = () => {
       },
     }));
     // CriarRotina.setStep("7"); // ou "fim"
-    sendPrompt(CriarRotina.prompt, userContext.userInfo.id)
+    sendPrompt(CriarRotina.prompt, userContext.userInfo.user.id)
       .then((resp) => {
         userContext.setCurrentPage("verRotina")
         rotinaContext.setRotina(resp)

@@ -26,7 +26,7 @@ const RotinaResumo = () => {
 
   const rotinaContext = useContext(RotinaResumoContext) as IRotinaResumoContext
 
-  console.log("geminiGeneratedContent: ", rotinaContext.rotina.geminiGeneratedContent);
+  console.log("geminiGeneratedContent: ", JSON.parse(rotinaContext.rotina.geminiGeneratedContent).schedule);
   
   return (
     <Box

@@ -15,7 +15,7 @@ export default function App() {
         <div className="app-container">
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                {!userContext.userInfo.name
+                {!userContext.userInfo.user.name
                     ?
                     <LoginProvider>
                         <Login />

@@ -30,7 +30,7 @@ const LoginForm = () => {
         setLoading(true)
         loginUser(loginForm)
             .then((resp) => {
-                console.log(resp)
+                console.log("resp: ", resp)
                 setLoading(false)
                 userContext.setUserInfo(resp)
             })

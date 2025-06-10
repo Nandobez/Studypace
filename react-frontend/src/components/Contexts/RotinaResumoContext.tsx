@@ -32,9 +32,146 @@ export const rotinaInitMock: IRotina = {
         "Algebra"
     ],
     dailyStudyHours: 2,
-    geminiGeneratedContent: 
-    "[Formatted] Gemini feedback: ```json\n {\n  \"schedule\": [\n    {\n      \"date\": \"2025-06-05\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-06\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra - Review\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-07\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry - Review\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"MEDIUM\",\n          \"methods\":[\"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus - Review\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-08\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Practice Test 1\"],\n          \"timeSlots\": \"14:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-09\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Algebra - Difficult Topics\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Geometry - Difficult Topics\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-10\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Calculus - Difficult Topics\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        },\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Practice Test 2\"],\n          \"timeSlots\": \"15:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-11\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Final Review\"],\n          \"timeSlots\": \"14:00-16:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Videos\", \"Practice\"]\n        }\n      ]\n    },\n    {\n      \"date\": \"2025-06-12\",\n      \"subjects\": [\n        {\n          \"name\": \"Math\",\n          \"topics\": [\"Last Minute Review\"],\n          \"timeSlots\": \"14:00-15:00\",\n          \"priority\": \"HIGH\",\n          \"methods\":[\"Practice\"]\n        }\n      ]\n    }\n  ],\n  \"importantSubjects\": [\"Math\"],\n  \"recommendations\": \"Prioritize practice tests and review difficult topics.  Ensure you understand the core concepts before moving on to more complex problems.  Use videos to supplement your understanding of the material.\"\n}\n```\n",
-    
+    geminiGeneratedContent:
+        `
+{
+  "schedule": [
+    {
+      "date": "2025-06-05",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Algebra"],
+          "timeSlots": "14:00-15:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        },
+        {
+          "name": "Math",
+          "topics": ["Geometry"],
+          "timeSlots": "15:00-16:00",
+          "priority": "MEDIUM",
+          "methods": ["Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-06",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Calculus"],
+          "timeSlots": "14:00-15:00",
+          "priority": "HIGH",
+          "methods": ["Videos"]
+        },
+        {
+          "name": "Math",
+          "topics": ["Algebra - Review"],
+          "timeSlots": "15:00-16:00",
+          "priority": "MEDIUM",
+          "methods": ["Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-07",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Geometry - Review"],
+          "timeSlots": "14:00-15:00",
+          "priority": "MEDIUM",
+          "methods": ["Practice"]
+        },
+        {
+          "name": "Math",
+          "topics": ["Calculus - Review"],
+          "timeSlots": "15:00-16:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-08",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Practice Test 1"],
+          "timeSlots": "14:00-16:00",
+          "priority": "HIGH",
+          "methods": ["Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-09",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Algebra - Difficult Topics"],
+          "timeSlots": "14:00-15:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        },
+        {
+          "name": "Math",
+          "topics": ["Geometry - Difficult Topics"],
+          "timeSlots": "15:00-16:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-10",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Calculus - Difficult Topics"],
+          "timeSlots": "14:00-15:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        },
+        {
+          "name": "Math",
+          "topics": ["Practice Test 2"],
+          "timeSlots": "15:00-16:00",
+          "priority": "HIGH",
+          "methods": ["Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-11",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Final Review"],
+          "timeSlots": "14:00-16:00",
+          "priority": "HIGH",
+          "methods": ["Videos", "Practice"]
+        }
+      ]
+    },
+    {
+      "date": "2025-06-12",
+      "subjects": [
+        {
+          "name": "Math",
+          "topics": ["Last Minute Review"],
+          "timeSlots": "14:00-15:00",
+          "priority": "HIGH",
+          "methods": ["Practice"]
+        }
+      ]
+    }
+  ],
+  "importantSubjects": ["Math"],
+  "recommendations": "Prioritize practice tests and review difficult topics.  Ensure you understand the core concepts before moving on to more complex problems.  Use videos to supplement your understanding of the material."
+}
+`,
     progress: 0,
     objetivo: "Resumo de Conteudos Especificos",
     tempoPorDia: '3',
