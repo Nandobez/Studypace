@@ -16,7 +16,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import { School, AccessTime, Checklist, Insights, Feedback, Logout } from "@mui/icons-material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IRotinaResumoContext, RotinaResumoContext } from "../../Contexts/RotinaResumoContext";
 import React from "react";
 import NavBar from "../../NavBar/NavBar";
@@ -26,8 +26,27 @@ const RotinaResumo = () => {
 
   const rotinaContext = useContext(RotinaResumoContext) as IRotinaResumoContext
 
-  console.log("geminiGeneratedContent: ", JSON.parse(rotinaContext.rotina.geminiGeneratedContent).schedule);
-  
+  const jsonMatch = rotinaContext.rotina.geminiGeneratedContent.match(/```json\s*([\s\S]*?)\s*```/);
+  const rotinaJSON = jsonMatch ? JSON.parse(jsonMatch[1]) : {
+    schedule: [
+      {
+        date: "2025-06-10",
+        subjects: [
+          {
+            name: "Matemática",
+            priority: "HIGH",
+            timeSlots: "14:00-15:00",
+            topics: [""]
+          }
+        ]
+      }
+    ],
+    recommendations: "Nd",
+    importantSubjects: ["Nd"]
+  };
+
+  console.log("ROTINA: ", rotinaJSON)
+
   return (
     <Box
       sx={{
@@ -36,7 +55,7 @@ const RotinaResumo = () => {
         left: 0,
         height: '100vh',
         width: '100vw',
-        overflow: 'hidden',
+        overflowY: 'scroll',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -48,22 +67,23 @@ const RotinaResumo = () => {
           width: '100vw',
           backgroundColor: 'rgb(255, 255, 255)',
           display: 'flex',
+          overflowY: 'scroll',
           justifyContent: 'center',
-          alignItems: 'center',
+          // alignItems: 'center',
           px: 2,
         }}
       >
-        <Container maxWidth="md" sx={{ py: 5 }}>
+        <Container maxWidth="md" sx={{ py: 5  }}>
           <Typography variant="h5" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: '#1976d2' }}>
             📘 {rotinaContext.rotina.title}
           </Typography>
 
-          <Box sx={{ my: 2 }}>
+          {/* <Box sx={{ my: 2 }}>
             <Typography variant="body2" color="text.secondary">
               {rotinaContext.rotina.progress}% Completo
             </Typography>
             <LinearProgress variant="determinate" value={rotinaContext.rotina.progress} sx={{ height: 10, borderRadius: 5 }} />
-          </Box>
+          </Box> */}
 
           {/* Resumo */}
           <Card sx={{ my: 3 }}>
@@ -74,29 +94,56 @@ const RotinaResumo = () => {
               <Stack spacing={1}>
                 <Chip icon={<School />} label={`Objetivo: ${rotinaContext.rotina.objetivo}`} />
                 <Chip icon={<AccessTime />} label={`Até quando: ${rotinaContext.rotina.endDate}`} />
-                <Chip icon={<Checklist />} label={`Tempo diário: ${rotinaContext.rotina.tempoPorDia} por dia`} />
+                <Chip icon={<Checklist />} label={`Tempo diário: ${rotinaContext.rotina.dailyStudyHours} por dia`} />
               </Stack>
             </CardContent>
           </Card>
 
           {/* Agenda do Dia */}
-          <Card sx={{ my: 3 }}>
+          <Card sx={{ my: 3}}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 📅 Agenda do Dia
               </Typography>
-              <Stack spacing={1}>
-                {/* {rotinaContext.rotina.agenda.map((item, idx) => (
-                  <Typography key={idx} variant="body1">
-                    • {item}
-                  </Typography>
-                ))} */}
+              <Stack spacing={2}>
+                {rotinaJSON.schedule.map((entry: any) => (
+                  <Box key={entry.date}>
+                    <Typography variant="subtitle1" fontWeight="bold">
+                      {new Date(entry.date).toLocaleDateString('pt-BR')}
+                    </Typography>
+                    <Stack spacing={1} mt={1}>
+                      {entry.subjects.map((subject: any, index: any) => (
+                        <Box
+                          key={`${subject.name}-${index}`}
+                          sx={{
+                            border: '1px solid #ccc',
+                            borderRadius: 2,
+                            p: 1.5,
+                            backgroundColor: '#f9f9f9',
+                          }}
+                        >
+                          <Typography variant="body1" fontWeight="bold">
+                            🧠 {subject.name} ({subject.priority})
+                          </Typography>
+                          <Typography variant="body2">⏰ {subject.timeSlots}</Typography>
+                          <ul style={{ margin: 0, paddingLeft: 20 }}>
+                            {subject.topics.map((topic: any, i: any) => (
+                              <li key={i}>
+                                <Typography variant="body2">{topic}</Typography>
+                              </li>
+                            ))}
+                          </ul>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </Box>
+                ))}
               </Stack>
             </CardContent>
           </Card>
 
-          {/* Estatísticas */}
-          <Card sx={{ my: 3 }}>
+
+          {/* <Card sx={{ my: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 📊 Estatísticas
@@ -108,20 +155,18 @@ const RotinaResumo = () => {
                 Média de horas por dia: {rotinaContext.rotina.mediaHoras}h
               </Typography>
               <Box sx={{ mt: 2 }}>
-                {/* Você pode usar um gráfico real aqui com Recharts, Chart.js etc. */}
-                <img src="/path/to/placeholder-grafico.png" alt="Gráfico" width="100%" />
+                <img src="/path/to/grafico.png" alt="Gráfico" width="100%" />
               </Box>
             </CardContent>
-          </Card>
+          </Card> */}
 
-          {/* Feedback da IA */}
           <Alert severity="info" icon={<Feedback />} sx={{ mt: 4 }}>
             <strong>Feedback da IA:</strong><br />
-            {rotinaContext.rotina.feedBack}
+            {rotinaJSON.recommendations}
           </Alert>
         </Container>
       </Box>
-    </Box>
+    </Box >
   );
 };
 
