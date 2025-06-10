@@ -1,5 +1,6 @@
 package com.studypace.studypace.backend.controller;
 
+import com.studypace.studypace.backend.dto.AuthResponseDTO;
 import com.studypace.studypace.backend.dto.UserDTO;
 import com.studypace.studypace.backend.model.User;
 import com.studypace.studypace.backend.repository.UserRepository;
@@ -47,10 +48,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserDTO dto) {
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody UserDTO dto) {
         logger.info("Registering user with email: {}", dto.getEmail());
+
         User user = userService.createUser(dto);
-        return ResponseEntity.status(201).body(user);
+        String token = jwtService.generateToken(user);
+
+        AuthResponseDTO response = new AuthResponseDTO(token, user);
+        return ResponseEntity.status(201).body(response);
     }
 
     @PostMapping("/login")
@@ -75,8 +80,11 @@ public class AuthController {
             // Remove a senha antes de retornar
             user.setPassword(null);
 
+            String token = jwtService.generateToken(user);
+
+            AuthResponseDTO response = new AuthResponseDTO(token, user);
             // Retorna o objeto User diretamente (sem DTO)
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(response);
 
         } catch (BadCredentialsException e) {
             logger.error("Bad credentials for user: {}", loginRequest.getEmail());
