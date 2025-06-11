@@ -15,7 +15,7 @@ const Step3 = () => {
     const [horas, setHoras] = useState<number>(3);
 
     const handleNext = () => {
-        CriarRotina.setPrompt(prev => ({ ...prev, step3: `${horas} horas` }));
+        CriarRotina.setPrompt(prev => ({ ...prev, step3: horas }));
         CriarRotina.setStep("4");
         console.log('Tempo disponível: ', horas);
         console.log("Prompt: ", CriarRotina.prompt)

@@ -2,11 +2,17 @@ import React, { createContext, useState } from 'react';
 
 type TStep = "1" | "2" | "3" | "4" | "5" | "6"
 
+interface IStep2 {
+    area: string,
+    materias: Array<string>,
+    topicos: Array<string>
+}
+
 interface IPrompt {
     step1: string,
-    step2: string,
-    step3: string,
-    step4: string | undefined,
+    step2: IStep2,
+    step3: number,
+    step4: Date | undefined,
     step5: Array<string>,
     step6: {
         materiais: Array<string>,
@@ -16,8 +22,12 @@ interface IPrompt {
 
 const promptInit: IPrompt = {
     step1: '',
-    step2: '',
-    step3: '',
+    step2: {
+        area: "",
+        materias: [],
+        topicos: []
+    },
+    step3: 0,
     step4: undefined,
     step5: [],
     step6: {

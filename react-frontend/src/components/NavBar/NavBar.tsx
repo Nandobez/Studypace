@@ -5,6 +5,7 @@ import LOGO_StudyPace_Branco from '../../assets/LOGO_StudyPace_Branco.png'
 import PixelIcon from "../Icons/PixelIcon";
 import User from 'pixelarticons/svg/user.svg?react';
 import Logout from 'pixelarticons/svg/logout.svg?react';
+import { Settings } from "@mui/icons-material";
 
 const NavBar = () => {
     const userContext = useContext(UserContext) as IUserContext;
@@ -29,7 +30,7 @@ const NavBar = () => {
     }
 
     return (
-        <AppBar position="static" elevation={0} sx={{boxShadow: "4px 4px 0px #ffcc34"}}>
+        <AppBar position="static" elevation={0} sx={{ boxShadow: "4px 4px 0px #ffcc34" }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Box
                     component="img"
@@ -44,7 +45,7 @@ const NavBar = () => {
                         onClick={handleClick}
                         color='inherit'
                     >
-                        {/* <PixelIcon Icon={Gear} /> */}
+                        <Settings />
                     </IconButton>
                 </Tooltip>
 
@@ -55,8 +56,8 @@ const NavBar = () => {
                     onClose={handleClose}
                     elevation={0}
                 >
-                    <MenuItem onClick={handleUpdateProfile} sx={{gap: 1}}>{<PixelIcon Icon={User} />}Perfil</MenuItem>
-                    <MenuItem onClick={handleLogoutProfile} sx={{gap: 1}}>{<PixelIcon Icon={Logout} />}Sair</MenuItem>
+                    <MenuItem onClick={handleUpdateProfile} sx={{ gap: 1 }}>{<PixelIcon Icon={User} />}Perfil</MenuItem>
+                    <MenuItem onClick={handleLogoutProfile} sx={{ gap: 1 }}>{<PixelIcon Icon={Logout} />}Sair</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar >

@@ -34,7 +34,7 @@ const Home = () => {
                     maxWidth: 700
                 }}
             >
-                BEM VINDO AO STUDYPACE, {userContext.userInfo.name.toLocaleUpperCase()} <br />
+                BEM VINDO AO STUDYPACE, {userContext.userInfo.user.name.toLocaleUpperCase()} <br />
                 COMECE AGORA E TIRE O MÁXIMO DOS SEUS ESTUDOS HOJE MESMO!
             </Typography>
 

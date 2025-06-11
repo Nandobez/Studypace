@@ -4,7 +4,7 @@ import { Typography, TextField, Box, Link, Button, CircularProgress, Divider, Ic
 import React, { useContext, useState } from "react";
 import { registerFormInit } from "./RegisterFormConsts";
 import { IRegisterForm } from "./RegisterFormTypes";
-import { createUser } from "../../../../api/userApi";
+import { register } from "../../../../api/userApi";
 import { IUserContext, UserContext } from "../../../Contexts/UserContext";
 
 const RegisterForm = () => {
@@ -32,14 +32,18 @@ const RegisterForm = () => {
 
     const submitRegister = () => {
         setLoading(true)
-        createUser(registerForm)
+
+        console.log(registerForm)
+        register(registerForm)  
             .then((resp) => {
+                console.log(resp)
                 setLoading(false)
                 userContext.setUserInfo(resp)
+                console.log("acerto")
             })
             .catch(() => {
+                console.log("erro")
                 setLoading(false)
-                userContext.setUserInfo(registerForm)
             })
     }
 

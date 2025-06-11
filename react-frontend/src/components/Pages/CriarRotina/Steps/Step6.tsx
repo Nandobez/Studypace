@@ -54,17 +54,30 @@ const Step6 = () => {
         complementar: complementar.trim(),
       },
     }));
-    // CriarRotina.setStep("7"); // ou "fim"
-    sendPrompt(CriarRotina.prompt)
+    console.log("Prompt: ", CriarRotina.prompt)
+    const promptPayload = {
+      title: `${CriarRotina.prompt.step2.area} Study Plan`,
+      description: "",
+      startDate: new Date().toISOString().split("T")[0],
+      dateEndDate: CriarRotina.prompt.step4,
+      subjects: CriarRotina.prompt.step2.materias,
+      priorityTopics: CriarRotina.prompt.step2.topicos,
+      dailyHours: CriarRotina.prompt.step3,
+      studyType: CriarRotina.prompt.step1,
+      purpose: "",
+      preferredMethods: CriarRotina.prompt.step6.materiais.join(", ")
+    }
+    console.log("promptPayload: ", promptPayload)
+    sendPrompt(promptPayload, userContext.userInfo.user.id, userContext.userInfo.token)
       .then((resp) => {
+        console.log("---------------")
+        console.log(resp)
         userContext.setCurrentPage("verRotina")
         rotinaContext.setRotina(resp)
         setLoading(false)
       })
       .catch((err) => {
         console.log(err)
-        rotinaContext.setRotina((prev) => ({...prev, objetivo: CriarRotina.prompt.step1, area: CriarRotina.prompt.step2, tempoPorDia: CriarRotina.prompt.step3, dataLimite: CriarRotina.prompt.step4}))
-        userContext.setCurrentPage("verRotina")
         setLoading(false)
       });
     // userContext.setCurrentPage("verRotina")

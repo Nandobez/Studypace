@@ -4,7 +4,7 @@ import { Typography, TextField, Box, Link, Button, Divider, IconButton, Circular
 import { LoginContext, ILoginContext } from "../../../Contexts/LoginContext"
 import { ILoginForm } from "./LoginFormTypes"
 import { loginFormInit } from "./LoginFormConsts"
-import { createUser } from "../../../../api/userApi"
+import { loginUser } from "../../../../api/userApi"
 import { IUserContext, UserContext } from "../../../Contexts/UserContext";
 import PixelIcon from "../../../Icons/PixelIcon"
 import Login from 'pixelarticons/svg/login.svg?react';
@@ -28,14 +28,15 @@ const LoginForm = () => {
 
     const submitLogin = () => {
         setLoading(true)
-        createUser(loginForm)
+        loginUser(loginForm)
             .then((resp) => {
+                console.log("resp: ", resp)
                 setLoading(false)
                 userContext.setUserInfo(resp)
             })
             .catch(() => {
+                console.log("erro")
                 setLoading(false)
-                userContext.setUserInfo(prev => ({...prev, name: "Davi Brito", email: loginForm.email, password: loginForm.password}))
             })
     }
 
